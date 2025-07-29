@@ -1,4 +1,4 @@
-#VaultFace
+**VaultFace**
 
 *A modern, privacy‑aware Personal Finance Assistant built with Next.js, Firebase, Tailwind CSS, and shadcn/ui.*
 
@@ -6,10 +6,10 @@
 
 ---
 
-## 🚀 Live Demo
+##  Live Demo
 
-**🔗 Deployed App:** [https://finance-typeface-nine.vercel.app](https://finance-typeface-nine.vercel.app)  
-**🧪 Test Login:**  
+** Deployed App:** [https://finance-typeface-nine.vercel.app](https://finance-typeface-nine.vercel.app)  
+** Test Login:**  
 - **Email:** `testuser@gmail.com`  
 - **Password:** `123456`  
 
