@@ -101,7 +101,7 @@ export default function AccountPage() {
         <header>
           <h1 className="text-3xl font-bold">Account Settings</h1>
           <p className="text-md text-muted-foreground">
-            Manage your profile and learn about Finance-typeface&apos;s AI capabilities.
+            Manage your profile and learn about VaultFace's AI capabilities.
           </p>
         </header>
 
@@ -200,12 +200,12 @@ export default function AccountPage() {
           <Card className="bg-[#161b33] text-white flex flex-col">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Brain size={20} className="text-purple-400" /> About Finance-typeface AI
+                <Brain size={20} className="text-purple-400" /> About VaultFace AI
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 flex-grow text-sm text-white">
               <p className="text-muted-foreground">
-                Finance-typeface is powered by advanced AI to give you smart, personalized financial insights.
+                VaultFace is powered by advanced AI to give you smart, personalized financial insights.
               </p>
               <ul className="list-disc list-inside space-y-2">
                 <li className="flex gap-2">
@@ -222,7 +222,7 @@ export default function AccountPage() {
                 </li>
               </ul>
               <p className="text-muted-foreground">
-                We&apos;re continuously enhancing Finance-typeface&apos;s capabilities to better serve you.
+                We&apos;re continuously enhancing VaultFace&apos;s capabilities to better serve you.
               </p>
             </CardContent>
           </Card>
