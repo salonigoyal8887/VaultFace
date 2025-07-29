@@ -68,13 +68,13 @@ export default function TopNavbar() {
                 <TrendingDown className="w-4 h-4" />
                 <span className="font-medium">Expenses</span>
               </Link>
-              <Link
+              {/* <Link
                 href="/statistics"
                 className="flex items-center gap-2 px-3 py-1 font-medium transition border-b-2 border-transparent hover:border-primary"
               >
                 <BarChart2 className="w-4 h-4" />
                 <span className="font-medium">Statistics</span>
-              </Link>
+              </Link> */}
               <Link
                 href="/upload-transactions"
                 className="flex items-center gap-2 px-3 py-1 font-medium transition border-b-2 border-transparent hover:border-primary"

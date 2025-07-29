@@ -15,6 +15,10 @@ export function DateRangePicker({
   date?: DateRange;
   setDate: (range: DateRange | undefined) => void;
 }) {
+  // Log date range changes
+  React.useEffect(() => {
+    console.log("DateRangePicker current value:", date);
+  }, [date]);
   return (
     <Popover>
       <PopoverTrigger asChild>
