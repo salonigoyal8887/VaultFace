@@ -1,4 +1,4 @@
-# Finance-typeface
+#VaultFace
 
 *A modern, privacy‑aware Personal Finance Assistant built with Next.js, Firebase, Tailwind CSS, and shadcn/ui.*
 
@@ -13,10 +13,7 @@
 - **Email:** `testuser@gmail.com`  
 - **Password:** `123456`  
 
-**🎥 Demo Video:** [Watch Demo Video](https://drive.google.com/file/d/19nGVZaV0aUOrgFiwiyYriUHxpfQJounc/view?usp=sharing)
-
 ---
-
 
 
 ## Table of Contents
