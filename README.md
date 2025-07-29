@@ -1,4 +1,4 @@
-# Finsage
+#VaultFace
 
 *A modern, privacy‑aware Personal Finance Assistant built with Next.js, Firebase, Tailwind CSS, and shadcn/ui.*
 
