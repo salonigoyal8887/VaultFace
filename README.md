@@ -61,7 +61,7 @@
 ---
 
 ## Architecture Overview
-<img width="3840" height="2560" alt="Flow-Diagram" src="" />
+<img width="3840" height="2560" alt="Flow-Diagram" src="https://github.com/salonigoyal8887/VaultFace/blob/main/Screenshot%202025-07-29%20183840.png?raw=true" />
 
 
 ```
