@@ -1,8 +1,9 @@
 #VaultFace
 
-*A modern, privacy‑aware Personal Finance Assistant built with Next.js, Firebase, Tailwind CSS, and shadcn/ui.*
+*A contemporary, privacy-first personal finance assistant built with Next.js, Firebase, Tailwind CSS, and shadcn/ui.*
 
-> **Goal:** Provide an extensible SaaS‑style web app for tracking income & expenses, extracting data from receipts/statements (OCR + AI), generating monthly insights, and visualizing financial health trends.
+> **Goal:** Deliver a scalable SaaS-style web application that enables users to track income and expenses, extract data from receipts and statements using OCR and AI, generate monthly financial insights, and visualize spending trends.
+
 
 ---
 
