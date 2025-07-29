@@ -71,25 +71,25 @@ export default function Home() {
   // Individual features for sliding
   const features = [
     { 
-
+    
       title: "Track Income & Expenses", 
       desc: "Monitor your daily, monthly, and yearly financial transactions with ease. Get a complete overview of where your money goes.",
       image: "/file.svg"
     },
     { 
-     
+      // icon: "🧠", 
       title: "AI-Powered Insights", 
       desc: "Get intelligent suggestions based on your spending patterns. Our AI helps you make smarter financial decisions.",
       image: "/globe.svg"
     },
     { 
-      
+     
       title: "Visual Analytics", 
       desc: "Beautiful charts for trends, categories, and savings. Visualize your financial health with intuitive graphs.",
       image: "/window.svg"
     },
     { 
-      
+     
       title: "Receipt OCR", 
       desc: "Scan receipts and upload PDFs to auto-extract transactions. Save time on manual data entry with our smart recognition.",
       image: "/file.svg"
@@ -101,7 +101,7 @@ export default function Home() {
       image: "/window.svg"
     },
     { 
-       
+     
       title: "Secure Cloud Backup", 
       desc: "All your data stored securely using Firebase. Rest easy knowing your financial information is protected.",
       image: "/globe.svg"
@@ -112,7 +112,22 @@ export default function Home() {
     <div className="relative min-h-screen w-full overflow-hidden flex flex-col bg-white text-black">
       {/* Sliding Background */}
       <div className="absolute inset-0 -z-10 overflow-hidden">
-        // ... existing code ...
+        {/* Gradient backgrounds that slide */}
+        <BackgroundSlide active={activeSlide === 0}>
+          <div className="absolute inset-0 bg-gradient-to-br from-teal-800 to-teal-900"></div>
+        </BackgroundSlide>
+        <BackgroundSlide active={activeSlide === 1}>
+          <div className="absolute inset-0 bg-gradient-to-tr from-teal-900 to-teal-700"></div>
+        </BackgroundSlide>
+        <BackgroundSlide active={activeSlide === 2}>
+          <div className="absolute inset-0 bg-gradient-to-bl from-teal-800 to-gray-900"></div>
+        </BackgroundSlide>
+        <BackgroundSlide active={activeSlide === 3}>
+          <div className="absolute inset-0 bg-gradient-to-r from-teal-900 to-teal-800"></div>
+        </BackgroundSlide>
+        <BackgroundSlide active={activeSlide === 4}>
+          <div className="absolute inset-0 bg-gradient-to-tl from-gray-900 to-teal-800"></div>
+        </BackgroundSlide>
       </div>
 
       {/* Header / Navigation - Dark shade with centered nav */}
@@ -125,7 +140,7 @@ export default function Home() {
           <a href="#how-it-works" className="text-white hover:text-teal-400 transition">How It Works</a>
           <a href="#" onClick={scrollToSupport} className="text-white hover:text-teal-400 transition">Support</a>
         </nav>
-        <div className="invisible md:visible">{/* Spacer to maintain layout */}</div>
+        <div className="invisible md:visible">{}</div>
       </header>
 
       {/* Main Content */}

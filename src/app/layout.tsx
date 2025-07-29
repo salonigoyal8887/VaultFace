@@ -6,7 +6,7 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Finance-typeface",
+  title: "VaultFace Dashboard",
   description: "Smart Personal Finance Assistant",
 };
 

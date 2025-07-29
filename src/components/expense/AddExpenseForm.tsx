@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { CalendarIcon, IndianRupee } from "lucide-react";
+import { CalendarIcon, IndianRupee, Receipt, Folder as FolderIcon, FileText as FileIcon, Upload } from "lucide-react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/lib/firebase";
 import { useAuth } from "@/context/AuthContext";
@@ -153,51 +153,48 @@ export default function AddExpenseForm({ onAdded }: AddExpenseFormProps) {
   };
 
   return (
-    <Card className="bg-[#161b33] text-white border-none">
-      <CardHeader>
-        <CardTitle className="text-xl">Add New Expense</CardTitle>
+    <Card className="bg-white text-foreground shadow-sm hover:shadow transition-all duration-200 border border-border h-full overflow-hidden">
+      <CardHeader className="pb-2">
+        <CardTitle className="flex items-center gap-3">
+          <div className="bg-primary/10 rounded-full p-2 flex items-center justify-center">
+            <Receipt size={18} className="text-primary" />
+          </div>
+          <span>Add new expense</span>
+        </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="overflow-auto pt-4">
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="space-y-1">
-            <Label>Upload Receipt (optional)</Label>
+          {/* Amount */}
+          <div className="space-y-2">
+            <Label htmlFor="amount" className="text-muted-foreground flex items-center gap-2">
+              <IndianRupee size={14} /> Amount
+            </Label>
             <Input
-              type="file"
-              accept="image/*,application/pdf"
-              onChange={handleFileUpload}
-              disabled={isExtracting || isSubmitting}
-              className="text-white file:text-white file:bg-[#1f2547] file:border-none"
+              id="amount"
+              type="number"
+              inputMode="decimal"
+              value={amount}
+              onChange={(e) => setAmount(e.target.value)}
+              disabled={isSubmitting}
+              placeholder="0.00"
+              className="bg-muted/50 text-foreground border focus:border-primary pl-10"
             />
-            {isExtracting && <p className="text-sm animate-pulse text-indigo-300">Extracting...</p>}
+            <IndianRupee className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
           </div>
 
-          <div className="space-y-1">
-            <Label htmlFor="amount">Amount (₹)</Label>
-            <div className="relative">
-              <Input
-                id="amount"
-                type="number"
-                inputMode="decimal"
-                value={amount}
-                onChange={(e) => setAmount(e.target.value)}
-                disabled={isSubmitting}
-                placeholder="0.00"
-                className="bg-[#1f2547] border pl-10"
-              />
-              <IndianRupee className="absolute left-3 top-2.5 h-4 w-4 text-indigo-400" />
-            </div>
-          </div>
-
-          <div className="space-y-1">
-            <Label htmlFor="category">Category</Label>
+          {/* Category */}
+          <div className="space-y-2">
+            <Label htmlFor="category" className="text-muted-foreground flex items-center gap-2">
+              <FolderIcon size={14} /> Category
+            </Label>
             <select
               id="category"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               disabled={isSubmitting}
-              className="bg-[#1f2547] border w-full py-2 px-3 rounded"
+              className="w-full p-2 rounded-md bg-muted/50 text-foreground border border-input focus:border-primary"
             >
-              <option value="">Select category</option>
+              <option value="">Select a category</option>
               {CATEGORY_OPTIONS.map((c) => (
                 <option key={c} value={c}>{c}</option>
               ))}
@@ -205,39 +202,77 @@ export default function AddExpenseForm({ onAdded }: AddExpenseFormProps) {
           </div>
 
           {showCustomInput && (
-            <div className="space-y-1">
-              <Label htmlFor="customCategory">Custom Category</Label>
+            <div className="space-y-2">
+              <Label htmlFor="customCategory" className="text-muted-foreground">Custom Category</Label>
               <Input
                 id="customCategory"
                 value={customCategory}
                 onChange={(e) => setCustomCategory(e.target.value)}
                 disabled={isSubmitting}
                 placeholder="Enter category"
-                className="bg-[#1f2547] border text-white"
+                className="bg-muted/50 text-foreground border focus:border-primary"
               />
             </div>
           )}
 
-          <div className="space-y-1">
-            <Label htmlFor="date">Date</Label>
+          {/* Date */}
+          <div className="space-y-2">
+            <Label htmlFor="date" className="text-muted-foreground flex items-center gap-2">
+              <CalendarIcon size={14} /> Date
+            </Label>
             <div className="relative">
               <DatePicker
                 selected={date}
                 onChange={(d) => setDate(d)}
                 disabled={isSubmitting}
-                className="bg-[#1f2547] text-white w-full py-2 px-3 rounded border pl-10"
+                className="w-full p-2 rounded-md bg-muted/50 text-foreground border border-input focus:border-primary pl-10"
                 placeholderText="Select a date"
+                dateFormat="MMMM d, yyyy"
               />
-              <CalendarIcon className="absolute left-3 top-2.5 h-4 w-4 text-pink-400" />
+              <CalendarIcon className="absolute left-3 top-2.5 h-4 w-4 text-muted-foreground" />
             </div>
+          </div>
+
+          {/* File Upload */}
+          <div className="space-y-2">
+            <Label htmlFor="receipt" className="text-muted-foreground flex items-center gap-2">
+              <FileIcon size={14} /> Upload receipt (optional)
+            </Label>
+            <div className="flex items-center justify-center w-full">
+              <label
+                htmlFor="receipt"
+                className="flex flex-col items-center justify-center w-full h-32 border border-dashed rounded-lg cursor-pointer bg-muted/30 hover:bg-muted/50 transition-all"
+              >
+                <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                  <Upload className="w-8 h-8 mb-3 text-primary/70" />
+                  <p className="mb-2 text-sm text-muted-foreground">
+                    <span className="font-semibold">Click to upload</span> or drag and drop
+                  </p>
+                  <p className="text-xs text-muted-foreground/70">PDF, PNG, JPG (MAX. 10MB)</p>
+                </div>
+                <input
+                  id="receipt"
+                  type="file"
+                  accept="image/*,application/pdf"
+                  className="hidden"
+                  onChange={handleFileUpload}
+                  disabled={isExtracting}
+                />
+              </label>
+            </div>
+            {isExtracting && (
+              <div className="text-center text-muted-foreground text-sm mt-2 animate-pulse">
+                Extracting data from receipt...
+              </div>
+            )}
           </div>
 
           <Button
             type="submit"
             disabled={isSubmitting || isExtracting}
-            className="w-full mt-2 bg-pink-600 hover:bg-pink-700 text-white"
+            className="w-full mt-2 bg-primary hover:bg-primary/90 text-white disabled:opacity-70"
           >
-            {isSubmitting ? "Saving..." : "Add Expense"}
+            {isSubmitting ? "Saving..." : "Add expense"}
           </Button>
         </form>
       </CardContent>

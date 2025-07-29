@@ -25,7 +25,7 @@ interface CategoryDataPoint {
 }
 
 const COLORS = [
-  "#60a5fa", "#fcd34d", "#a78bfa", "#34d399", "#f87171",
+  "#14b8a6", "#fcd34d", "#a78bfa", "#34d399", "#f87171",
   "#818cf8", "#fb923c", "#c084fc", "#2dd4bf", "#e879f9",
 ];
 
@@ -94,27 +94,27 @@ export default function SpendingCategoryChart({ month, year }: SpendingCategoryC
   }, [month, year, user]);
 
   return (
-    <Card className="bg-[#161b33] text-white">
-      <CardContent className="p-4">
-        <h2 className="text-lg font-semibold mb-2">Spending by Category</h2>
+    <Card className="bg-primary/10 text-foreground shadow-sm hover:shadow transition-all duration-200 border border-primary/20 h-full overflow-hidden">
+      <CardContent className="p-4 h-full overflow-auto">
+        <h2 className="text-lg font-semibold mb-4">Spending by category</h2>
         <p className="text-sm mb-4 text-muted-foreground">
           For {selectedMonthName}, {year}
         </p>
 
         {loading && (
-          <div className="h-56 flex items-center justify-center text-gray-400">
-            Loading category data...
+          <div className="h-56 flex items-center justify-center text-muted-foreground">
+            <div className="animate-pulse">Loading category data...</div>
           </div>
         )}
 
         {error && (
-          <div className="h-56 flex items-center justify-center text-red-400">
+          <div className="h-56 flex items-center justify-center text-red-600">
             {error}
           </div>
         )}
 
         {!loading && !error && data.length > 0 && (
-          <div className="h-64">
+          <div className="h-64 overflow-auto">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -137,12 +137,13 @@ export default function SpendingCategoryChart({ month, year }: SpendingCategoryC
                 </Pie>
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: "#1e213a",
+                    backgroundColor: "#ffffff",
                     borderRadius: 8,
-                    border: "none",
+                    border: "1px solid #e2e8f0",
+                    color: "#0d9488"
                   }}
-                  labelStyle={{ color: "#c3c3c3" }}
-                  itemStyle={{ color: "#fff" }}
+                  labelStyle={{ color: "#0d9488" }}
+                  itemStyle={{ color: "#0d9488" }}
                   formatter={(value: number, name: string) => [
                     `₹${value.toFixed(2)}`,
                     name,
@@ -152,7 +153,7 @@ export default function SpendingCategoryChart({ month, year }: SpendingCategoryC
                   layout="horizontal"
                   align="center"
                   verticalAlign="bottom"
-                  wrapperStyle={{ color: "#fff", paddingTop: 16 }}
+                  wrapperStyle={{ color: "#0d9488", paddingTop: 16 }}
                   iconType="circle"
                 />
               </PieChart>
@@ -162,8 +163,13 @@ export default function SpendingCategoryChart({ month, year }: SpendingCategoryC
 
 
         {!loading && !error && data.length === 0 && (
-          <div className="h-56 flex items-center justify-center text-gray-400">
-            No spending data for {selectedMonthName}, {year}.
+          <div className="flex flex-col items-center justify-center h-56 py-8 text-center space-y-3">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2v6m0 12v2M4.93 4.93l4.24 4.24m5.66 5.66l4.24 4.24M2 12h6m8 0h6M4.93 19.07l4.24-4.24m5.66-5.66l4.24-4.24" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary/50" />
+            </svg>
+            <p className="text-sm text-muted-foreground">
+              No spending data for {selectedMonthName}, {year}
+            </p>
           </div>
         )}
       </CardContent>

@@ -51,12 +51,12 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-white px-4">
       <form
         onSubmit={handleRegister}
         className="w-full max-w-md space-y-6 rounded-xl border p-6 shadow-lg bg-white"
       >
-        <h1 className="text-2xl font-bold text-center">Register for Finance-typeface</h1>
+        <h1 className="text-2xl font-bold text-center text-black">Register for VaultFace</h1>
 
         {/* Full Name */}
         <Input
@@ -97,13 +97,13 @@ export default function RegisterPage() {
           </button>
         </div>
 
-        <Button type="submit" className="w-full" disabled={loading}>
+        <Button type="submit" className="w-full bg-teal-500 hover:bg-teal-600" disabled={loading}>
           {loading ? "Creating Account..." : "Register"}
         </Button>
 
-        <p className="text-sm text-center text-muted-foreground">
+        <p className="text-sm text-center text-gray-600">
           Already have an account?{" "}
-          <a href="/login" className="underline hover:text-purple-500 transition">
+          <a href="/login" className="underline hover:text-teal-600 transition">
             Login
           </a>
         </p>

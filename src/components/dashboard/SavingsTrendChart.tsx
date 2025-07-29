@@ -127,45 +127,64 @@ export default function SavingsTrendChart({ year }: SavingsTrendChartProps) {
   };
 
   return (
-    <Card className="bg-[#161b33] text-white">
-      <CardContent className="p-4">
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-lg font-semibold">Savings Trend - {year}</h2>
+    <Card className="bg-primary/10 text-foreground shadow-sm hover:shadow transition-all duration-200 border border-primary/20 h-full overflow-hidden">
+      <CardContent className="p-4 h-full overflow-auto">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-lg font-semibold">Savings trend ({year})</h2>
           <Button
-            className="text-white bg-blue-600 hover:bg-blue-700 px-3 py-1.5 rounded-md text-sm"
+            className="text-white bg-primary hover:bg-primary/90 px-3 py-1.5 rounded-md text-sm"
             onClick={handleDownloadCSV}
             disabled={loading || data.length === 0}
+            size="sm"
           >
             <Download className="w-4 h-4 mr-1" /> Export CSV
           </Button>
         </div>
 
         {loading ? (
-          <p className="text-gray-400">Loading savings trend...</p>
+          <div className="flex items-center justify-center h-64">
+            <p className="text-muted-foreground animate-pulse">Loading savings trend...</p>
+          </div>
+        ) : data.some(item => item.income > 0 || item.expense > 0) ? (
+          <div className="h-64 overflow-auto">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data}>
+                <CartesianGrid strokeDasharray="3 3" stroke="#0d9488" opacity={0.3} />
+                <XAxis dataKey="month" stroke="#0d9488" />
+                <YAxis stroke="#0d9488" />
+                <Tooltip
+                  contentStyle={{ 
+                    backgroundColor: "#ffffff", 
+                    borderRadius: 8, 
+                    border: "1px solid #e2e8f0",
+                    color: "#0d9488"
+                  }}
+                  labelStyle={{ color: "#0d9488" }}
+                  formatter={(value: number, name: string) => [
+                    `₹${value.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`,
+                    name.charAt(0).toUpperCase() + name.slice(1),
+                  ]}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="savings"
+                  stroke="#0d9488"
+                  strokeWidth={2}
+                  dot={{ r: 3, fill: "#0d9488", stroke: "#0d9488" }}
+                  activeDot={{ r: 5, fill: "#ffffff", stroke: "#0d9488" }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
         ) : (
-          <ResponsiveContainer width="100%" height={300}>
-            <LineChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#2d3652" />
-              <XAxis dataKey="month" stroke="#c3c3c3" />
-              <YAxis stroke="#c3c3c3" />
-              <Tooltip
-                contentStyle={{ backgroundColor: "#1e213a", borderRadius: 8 }}
-                labelStyle={{ color: "#c3c3c3" }}
-                formatter={(value: number, name: string) => [
-                  `₹${value.toFixed(2)}`,
-                  name.charAt(0).toUpperCase() + name.slice(1),
-                ]}
-              />
-              <Line
-                type="monotone"
-                dataKey="savings"
-                stroke="#34d399"
-                strokeWidth={3}
-                dot={{ r: 4 }}
-                activeDot={{ r: 6 }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          <div className="flex flex-col items-center justify-center h-64 py-8 text-center space-y-3">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 21H19.4C19.9601 21 20.2401 21 20.454 20.891C20.6422 20.7951 20.7951 20.6422 20.891 20.454C21 20.2401 21 19.9601 21 19.4V3M17 8L12 3M12 3L7 8M12 3V13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary/50" />
+            </svg>
+            <p className="text-sm text-muted-foreground">
+              No data available for {year}
+            </p>
+          </div>
         )}
       </CardContent>
     </Card>

@@ -13,11 +13,11 @@ export default function ExpensePage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6 text-foreground">
+      <div className="space-y-6 text-black">
         {/* Page Header */}
         <header>
           <h1 className="text-2xl font-bold">Expense Management</h1>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-gray-600">
             Track and manage your expenses efficiently.
           </p>
         </header>

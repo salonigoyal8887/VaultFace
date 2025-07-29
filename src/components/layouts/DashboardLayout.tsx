@@ -4,7 +4,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { Sidebar } from "@/components/ui/sidebar";
+import { TopNavbar } from "@/components/ui/topnavbar";
 import { Toaster } from "@/components/ui/sonner";
 import { useAuth } from "@/context/AuthContext";
 
@@ -33,9 +33,9 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
   }
 
   return (
-    <div className="flex h-screen bg-background text-foreground">
-      <Sidebar />
-      <main className="flex-1 overflow-y-auto p-6">{children}</main>
+    <div className="flex flex-col h-screen bg-background text-foreground">
+      <TopNavbar />
+      <main className="flex-1 overflow-y-auto pt-14 p-6 space-y-8">{children}</main>
       <Toaster />
     </div>
   );

@@ -12,11 +12,11 @@ export default function IncomePage() {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6">
+      <div className="space-y-6 text-black">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold ">Income Management</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="text-2xl font-bold">Income Management</h1>
+          <p className="text-sm text-gray-600">
             View, add, and analyze your income sources
           </p>
         </div>

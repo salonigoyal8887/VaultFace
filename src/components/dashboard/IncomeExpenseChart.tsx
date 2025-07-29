@@ -113,34 +113,39 @@ export default function IncomeExpenseChart({ year }: IncomeExpenseChartProps) {
   }, [year, user]);
 
   return (
-    <Card className="bg-[#161b33] text-white">
+    <Card className="bg-white text-foreground shadow-sm hover:shadow transition-all duration-200 border border-border">
       <CardContent className="p-4">
-        <h2 className="text-lg font-semibold mb-2">
-          Income & Expenses by Month (F.Y. {year})
+        <h2 className="text-lg font-semibold mb-4">
+          Income & expenses by month ({year})
         </h2>
 
         {loading && (
-          <div className="text-center text-gray-400">Loading...</div>
+          <div className="text-center text-muted-foreground py-4 animate-pulse">Loading...</div>
         )}
 
         {error && (
-          <div className="text-center text-red-400">{error}</div>
+          <div className="text-center text-red-600 py-4">{error}</div>
         )}
 
         {!loading && !error && data.length > 0 && (
           <div className="h-64">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data}>
-                <XAxis dataKey="month" stroke="#aaa" />
-                <YAxis stroke="#aaa" />
+                <XAxis dataKey="month" stroke="#0d9488" />
+                <YAxis stroke="#0d9488" />
                 <Tooltip
-                  contentStyle={{ backgroundColor: "#1e213a", border: "none" }}
-                  labelStyle={{ color: "#c3c3c3" }}
-                  itemStyle={{ color: "#fff" }}
-                  formatter={(value: number, key: string) => [`₹${value}`, key]}
+                  contentStyle={{ 
+                    backgroundColor: "#ffffff", 
+                    borderRadius: 8,
+                    border: "1px solid #e2e8f0",
+                    color: "#0d9488"
+                  }}
+                  labelStyle={{ color: "#0d9488" }}
+                  itemStyle={{ color: "#0d9488" }}
+                  formatter={(value: number, key: string) => [`₹${value.toLocaleString()}`, key]}
                 />
-                <Legend wrapperStyle={{ color: "#fff" }} />
-                <Bar dataKey="income" fill="#34d399" radius={[4, 4, 0, 0]} />
+                <Legend wrapperStyle={{ color: "#0d9488" }} />
+                <Bar dataKey="income" fill="#0d9488" radius={[4, 4, 0, 0]} />
                 <Bar dataKey="expenses" fill="#f87171" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
@@ -148,8 +153,13 @@ export default function IncomeExpenseChart({ year }: IncomeExpenseChartProps) {
         )}
 
         {!loading && !error && data.length === 0 && (
-          <div className="text-center text-gray-400">
-            No data available for {year}.
+          <div className="flex flex-col items-center justify-center h-56 py-8 text-center space-y-3">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M21 21H4.6C4.03995 21 3.75992 21 3.54601 20.891C3.35785 20.7951 3.20487 20.6422 3.10899 20.454C3 20.2401 3 19.9601 3 19.4V3M7 16L12 11M12 11L17 16M12 11V21" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-primary/50" />
+            </svg>
+            <p className="text-sm text-muted-foreground">
+              No data available for {year}
+            </p>
           </div>
         )}
       </CardContent>

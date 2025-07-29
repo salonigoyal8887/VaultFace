@@ -149,63 +149,54 @@ Savings: ₹${savings.toFixed(2)}
   const iconMap = [
     <Lightbulb key="income" className="text-yellow-300 w-5 h-5 mt-1" />,
     <BadgeCheck key="spending" className="text-teal-300 w-5 h-5 mt-1" />,
-    <TrendingUp key="tip" className="text-purple-300 w-5 h-5 mt-1" />,
+    <TrendingUp key="tip" className="text-teal-300 w-5 h-5 mt-1" />,
   ];
 
   return (
-    <Card className="bg-[#161b33] text-white h-full min-h-[250px]">
-      <CardContent className="p-5 flex flex-col gap-4">
-        <h2 className="text-xl font-bold">📘 AI Financial Insights</h2>
-        <p className="text-sm text-muted-foreground mb-1">
-          For{" "}
-          <span className="text-white font-medium">
-            {monthName} {year}
-          </span>
-        </p>
+    <Card className="bg-white text-foreground shadow-sm hover:shadow transition-all duration-200 border border-border h-full min-h-[250px]">
+      <CardContent className="p-6 flex flex-col gap-4">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="bg-primary/10 rounded-full p-2 flex items-center justify-center">
+            <Lightbulb className="w-5 h-5 text-primary" />
+          </div>
+          <h2 className="text-lg font-semibold">
+            AI Insights for {monthName} {year}
+          </h2>
+        </div>
 
         {/* Loading state */}
         {loading && (
-          <p className="text-blue-200 text-center text-base py-6">
-            ⏳ Analyzing your financial data with Gemini...
-          </p>
+          <div className="flex items-center justify-center p-4">
+            <div className="h-5 w-5 rounded-full border-2 border-primary/30 border-t-primary animate-spin"></div>
+            <span className="ml-2 text-muted-foreground">Generating insights...</span>
+          </div>
         )}
 
         {/* Error state */}
-        {error && (
-          <p className="text-red-400 text-center text-base py-6">{error}</p>
-        )}
+        {error && <div className="text-red-600 font-medium p-2">{error}</div>}
 
         {/* Valid insights display */}
         {!loading && !error && insightPoints.length > 0 && (
-          <div className="flex flex-col gap-4">
+          <ul className="space-y-4 p-2">
             {insightPoints.map((point, idx) => (
-              <div
-                key={idx}
-                className="flex items-start gap-3 text-base leading-relaxed"
-              >
-                {iconMap[idx] || (
-                  <BadgeCheck className="text-green-300 w-5 h-5 mt-1" />
-                )}
-                <p className="text-blue-100">
-                  <span className="font-semibold text-white">
-                    {idx === 0
-                      ? "Income Insight: "
-                      : idx === 1
-                      ? "Spending Insight: "
-                      : "Improvement Tip: "}
-                  </span>
-                  {point}
-                </p>
-              </div>
+              <li key={idx} className="flex items-start gap-3">
+                <BadgeCheck className="w-5 h-5 text-primary shrink-0 mt-1" />
+                <span className="text-foreground">{point}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         )}
 
         {/* No data fallback */}
         {!loading && !error && insightPoints.length === 0 && (
-          <p className="text-gray-400 text-center py-6">
-            No insights available yet. Add some transactions to get started!
-          </p>
+          <div className="flex flex-col items-center justify-center h-full text-center space-y-3 p-4">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 2H15M12 7V13M12 16V16.01M3 17.4V6.6C3 5.07452 4.24525 3.82 5.77002 3.82H18.23C19.7548 3.82 21 5.07452 21 6.6V17.4C21 18.9255 19.7548 20.18 18.23 20.18H5.77002C4.24525 20.18 3 18.9255 3 17.4Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground/50" />
+            </svg>
+            <p className="text-sm text-muted-foreground">
+              No insights available for this period.<br />Add more transactions to generate insights.
+            </p>
+          </div>
         )}
       </CardContent>
     </Card>

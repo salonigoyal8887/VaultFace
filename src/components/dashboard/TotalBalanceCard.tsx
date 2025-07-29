@@ -134,9 +134,14 @@ export default function TotalBalanceCard({ month, year }: TotalBalanceCardProps)
   }, [user, month, year]);
 
   return (
-    <Card className="bg-[#161b33] text-white">
+    <Card className="bg-primary/10 text-foreground h-full shadow-sm hover:shadow transition-all duration-200 border border-border">
       <CardContent className="p-4 space-y-4">
-        <h2 className="text-lg font-semibold">Total Balance</h2>
+        <h2 className="text-lg font-semibold mb-4 flex items-center gap-2">
+          <div className="bg-primary/20 rounded-full p-1.5 flex items-center justify-center">
+            <ArrowUp size={16} className="text-primary" />
+          </div>
+          <span>Total Balance</span>
+        </h2>
 
         <div className="text-4xl font-bold">
           ₹{currentBalance.toFixed(2)}
@@ -145,7 +150,7 @@ export default function TotalBalanceCard({ month, year }: TotalBalanceCardProps)
         {change !== null && (
           <p
             className={`text-sm flex items-center gap-1 ${
-              change >= 0 ? "text-green-400" : "text-red-400"
+              change >= 0 ? "text-green-600" : "text-red-600"
             }`}
           >
             {change >= 0 ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
@@ -154,37 +159,46 @@ export default function TotalBalanceCard({ month, year }: TotalBalanceCardProps)
         )}
 
         <div className="flex justify-between gap-4 text-sm mt-2">
-          <p className="text-green-400">
+          <p className="text-green-600">
             Income: <span className="font-semibold">₹{currentIncome.toFixed(2)}</span>
           </p>
-          <p className="text-red-400">
+          <p className="text-red-600">
             Expense: <span className="font-semibold">₹{currentExpense.toFixed(2)}</span>
           </p>
         </div>
 
         <div className="h-24">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data}>
-              <XAxis dataKey="month" stroke="#8884d8" />
-              <YAxis hide />
-              <Tooltip
-                contentStyle={{ backgroundColor: "#1e213a", border: "none" }}
-                labelStyle={{ color: "#c3c3c3" }}
-              />
-              <Line
-                type="monotone"
-                dataKey="balance"
-                stroke="#ffb347"
-                strokeWidth={2}
-                dot={{
-                  r: 4,
-                  stroke: "#ffb347",
-                  strokeWidth: 2,
-                  fill: "#161b33",
-                }}
-              />
-            </LineChart>
-          </ResponsiveContainer>
+          {data.length > 0 ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data}>
+                <XAxis dataKey="month" stroke="#0d9488" />
+                <YAxis hide />
+                <Tooltip
+                  contentStyle={{ backgroundColor: "white", border: "1px solid #e2e8f0" }}
+                  labelStyle={{ color: "#0d9488" }}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="balance"
+                  stroke="#0d9488"
+                  strokeWidth={2}
+                  dot={{
+                    r: 4,
+                    stroke: "#0d9488",
+                    strokeWidth: 2,
+                    fill: "white",
+                  }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="flex flex-col items-center justify-center h-full text-center space-y-2">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 9H21M7 3V5M17 3V5M6 13H8M6 17H8M12 13H14M12 17H14M18 13H20M18 17H20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-muted-foreground/50" />
+              </svg>
+              <p className="text-sm text-muted-foreground">No balance data yet</p>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>

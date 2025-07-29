@@ -77,10 +77,10 @@ export default function StatisticsPage() {
 
   return (
     <DashboardLayout>
-      <div className="max-w-6xl mx-auto p-6 text-foreground">
+      <div className="max-w-6xl mx-auto p-6 text-black">
         {/* Header */}
         <h2 className="text-4xl font-bold mb-2">Financial Statistics</h2>
-        <p className="text-muted-foreground mb-6 text-sm">
+        <p className="text-gray-600 mb-6 text-sm">
           Select a date range to view financial summary and AI-powered insights.
         </p>
 
@@ -113,9 +113,9 @@ export default function StatisticsPage() {
         {stats?.categoryTotals && Object.keys(stats.categoryTotals).length > 0 && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             {Object.entries(stats.categoryTotals).map(([category, value], idx) => (
-              <Card key={idx} className="bg-[#1e2746]">
+              <Card key={idx} className="bg-teal-800 text-white shadow-lg hover:shadow-xl transition-all duration-300">
                 <CardContent className="p-4">
-                  <h4 className="text-sm text-muted-foreground text-purple-400">{category}</h4>
+                  <h4 className="text-sm text-muted-foreground text-teal-200">{category}</h4>
                   <p className="text-lg font-semibold text-white">₹{Number(value)}</p>
                 </CardContent>
               </Card>
@@ -125,20 +125,20 @@ export default function StatisticsPage() {
 
         {/* AI Insight Section */}
         {insightVisible && (
-          <Card className="bg-[#161b33] border border-dashed border-blue-500">
-            <CardContent className="p-6">
+          <Card className="bg-teal-900 text-white shadow-lg hover:shadow-xl transition-all duration-300 border border-dashed border-teal-500">
+            <CardContent className="p-6 overflow-auto">
               <CardTitle className="flex items-center gap-2 text-white mb-6">
-                <Brain size={20} className="text-purple-400" />
+                <Brain size={20} className="text-teal-400" />
                 Finance-typeface AI Insights:
               </CardTitle>
               <div className="text-sm space-y-2">
                 {loadingInsight ? (
-                  <p className="text-blue-200">⏳ Generating insights based on your financial data...</p>
+                  <p className="text-teal-200">⏳ Generating insights based on your financial data...</p>
                 ) : aiInsight ? (
                   aiInsight.split(/\n+/).map((line, idx) => (
                     <div key={idx} className="flex items-start gap-2">
                       <Sparkles size={16} className="text-yellow-400 mt-1 flex-shrink-0" />
-                      <p className="text-emerald-300">{line.trim()}</p>
+                      <p className="text-teal-200">{line.trim()}</p>
                     </div>
                   ))
                 ) : (
@@ -156,7 +156,7 @@ export default function StatisticsPage() {
 // ---------- Reusable StatCard ----------
 function StatCard({ label, value, color }: { label: string; value: number; color: string }) {
   return (
-    <Card className="bg-[#161b33]">
+    <Card className="bg-teal-900 text-white shadow-lg hover:shadow-xl transition-all duration-300">
       <CardContent className="p-4">
         <h4 className="text-sm text-muted-foreground text-white">{label}</h4>
         <p className={`text-2xl font-bold ${color}`}>₹{value}</p>
